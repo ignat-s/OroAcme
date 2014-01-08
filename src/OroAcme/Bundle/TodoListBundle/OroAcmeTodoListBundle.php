@@ -1,9 +1,9 @@
 <?php
 
-namespace OroAcme\Bundle\TodoListBBundle;
+namespace OroAcme\Bundle\TodoListBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class OroAcmeTodoListBBundle extends Bundle
+class OroAcmeTodoListBundle extends Bundle
 {
 }
