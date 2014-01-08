@@ -1,0 +1,2 @@
+bundles:
+    - OroAcme\Bundle\TodoListBundle\OroAcmeTodoListBundle
