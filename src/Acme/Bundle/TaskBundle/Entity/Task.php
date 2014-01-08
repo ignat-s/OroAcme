@@ -1,21 +1,21 @@
 <?php
 
-namespace OroAcme\Bundle\TodoListBundle\Entity;
+namespace Acme\Bundle\TaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 use Oro\Bundle\UserBundle\Entity\User;
 
 /**
- * TodoList item
+ * Task item
  *
- * @ORM\Table(name="oroacme_todo_item", indexes={
- *      @ORM\Index(name="oroacme_todo_item_text_idx", columns={"text"})
+ * @ORM\Table(name="acme_task", indexes={
+ *      @ORM\Index(name="acme_task_text_idx", columns={"text"})
  * })
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity
  */
-class TodoItem
+class Task
 {
     /**
      * @var integer
@@ -34,9 +34,9 @@ class TodoItem
     protected $text;
 
     /**
-     * @var TodoStatus
+     * @var TaskStatus
      *
-     * @ORM\ManyToOne(targetEntity="OroAcme\Bundle\TodoListBundle\Entity\TodoStatus")
+     * @ORM\ManyToOne(targetEntity="Acme\Bundle\TaskBundle\Entity\TaskStatus")
      * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
      */
     protected $status;
@@ -96,7 +96,7 @@ class TodoItem
     }
 
     /**
-     * @param TodoStatus $status
+     * @param TaskStatus $status
      */
     public function setStatus($status)
     {
@@ -104,7 +104,7 @@ class TodoItem
     }
 
     /**
-     * @return TodoStatus
+     * @return TaskStatus
      */
     public function getStatus()
     {
@@ -165,6 +165,7 @@ class TodoItem
     public function prePersist()
     {
         $this->createdAt = new \DateTime();
+        $this->updatedAt = $this->createdAt;
     }
 
     /**

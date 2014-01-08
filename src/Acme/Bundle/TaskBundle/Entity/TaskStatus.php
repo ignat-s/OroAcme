@@ -1,16 +1,16 @@
 <?php
 
-namespace OroAcme\Bundle\TodoListBundle\Entity;
+namespace Acme\Bundle\TaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TodoList item status
+ * Task item status
  *
- * @ORM\Table(name="oroacme_todo_status")
+ * @ORM\Table(name="acme_task_status")
  * @ORM\Entity
  */
-class TodoStatus
+class TaskStatus
 {
     /**
      * @var string
@@ -45,7 +45,7 @@ class TodoStatus
 
     /**
      * @param string $label
-     * @return TodoStatus
+     * @return TaskStatus
      */
     public function setLabel($label)
     {

@@ -1,13 +1,13 @@
 <?php
 
-namespace OroAcme\Bundle\TodoListBundle\Tests\Unit\DependencyInjection;
+namespace Acme\Bundle\TaskBundle\Tests\Unit\DependencyInjection;
 
-use OroAcme\Bundle\TodoListBundle\DependencyInjection\OroAcmeTodoListExtension;
+use Acme\Bundle\TaskBundle\DependencyInjection\AcmeTaskExtension;
 
-class OroWorkflowExtensionTest extends \PHPUnit_Framework_TestCase
+class AcmeTaskExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var OroAcmeTodoListExtension
+     * @var AcmeTaskExtension
      */
     protected $extension;
 
@@ -21,7 +21,7 @@ class OroWorkflowExtensionTest extends \PHPUnit_Framework_TestCase
         $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')
             ->getMock();
 
-        $this->extension = new OroAcmeTodoListExtension();
+        $this->extension = new AcmeTaskExtension();
     }
 
     public function testLoad()

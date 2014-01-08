@@ -1,13 +1,13 @@
 <?php
 
-namespace OroAcme\Bundle\TodoListBundle\DependencyInjection;
+namespace Acme\Bundle\TaskBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 
-class OroAcmeTodoListExtension extends Extension
+class AcmeTaskExtension extends Extension
 {
     /**
      * {@inheritDoc}
