@@ -8,6 +8,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Acme\Bundle\TaskBundle\Entity\TaskStatus;
 
+/**
+ * Loads task statuses.
+ */
 class LoadTaskStatusData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**

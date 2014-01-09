@@ -32,6 +32,7 @@ git submodule add https://github.com/ignat-s/Acme.git src/Acme
 
 1. Configure PHP (Settings > PHP)
 2. Configure tests (Edit configuration > Defaults > PHPUnit)
+3. Exclude app/cache
 
 ## Create new bundle
 
@@ -41,7 +42,7 @@ git submodule add https://github.com/ignat-s/Acme.git src/Acme
 
 ## Register bundle
 
-Create orocrm-training/src/Acme/src/Acme/Bundle/TaskBundle/Resources/config/oro/bundles.yml
+Create Acme/Bundle/TaskBundle/Resources/config/oro/bundles.yml
 
 ```
 bundles:
@@ -56,7 +57,7 @@ app/console cache:clear
 
 ## Create entities
 
-1. Create Task entity (id, text, status, owner, created at, updated at)
+1. Create Task entity (id, title, description, related contacts, status, assignee, owner, created at, updated at)
 2. Create TaskStatus entity (name, label)
 3. Create data fixture for statuses (open, closed, in progress)
 4. Update database schema
@@ -73,3 +74,7 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 ```
 
 ## Create a pages with list, create/edit forms
+
+1. Add controller class Acme\Bundle\TaskBundle\Controller\TaskController
+2. Add Acme/Bundle/TaskBundle/Resources/config/oro/routing.yml
+3. Add template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig

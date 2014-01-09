@@ -3,6 +3,10 @@
 namespace Acme\Bundle\TaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -10,7 +14,7 @@ use Oro\Bundle\UserBundle\Entity\User;
  * Task item
  *
  * @ORM\Table(name="acme_task", indexes={
- *      @ORM\Index(name="acme_task_text_idx", columns={"text"})
+ *      @ORM\Index(name="acme_task_description_idx", columns={"description"})
  * })
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity
@@ -29,9 +33,27 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    protected $text;
+    protected $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
+     */
+    protected $description;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\ContactBundle\Entity\Contact")
+     * @ORM\JoinTable(name="acme_task_contacts",
+     *      joinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
+     */
+    protected $relatedContacts;
 
     /**
      * @var TaskStatus
@@ -40,6 +62,14 @@ class Task
      * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
      */
     protected $status;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $assignee;
 
     /**
      * @var User
@@ -63,6 +93,11 @@ class Task
      */
     protected $updatedAt;
 
+    public function __construct()
+    {
+        $this->relatedContacts = new ArrayCollection();
+    }
+
     /**
      * @param int $id
      */
@@ -80,19 +115,63 @@ class Task
     }
 
     /**
-     * @param string $text
+     * @param string $title
      */
-    public function setText($text)
+    public function setTitle($title)
     {
-        $this->text = $text;
+        $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getText()
+    public function getTitle()
     {
-        return $this->text;
+        return $this->title;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRelatedContacts()
+    {
+        return $this->relatedContacts;
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    public function addRelatedContact(Contact $contact)
+    {
+        if (!$this->relatedContacts->contains($contact)) {
+            $this->relatedContacts->add($contact);
+        }
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    public function removeRelatedContact(Contact $contact)
+    {
+        if ($this->relatedContacts->contains($contact)) {
+            $this->relatedContacts->removeElement($contact);
+        }
     }
 
     /**
@@ -141,6 +220,22 @@ class Task
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @param User $assignee
+     */
+    public function setAssignee($assignee)
+    {
+        $this->assignee = $assignee;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAssignee()
+    {
+        return $this->assignee;
     }
 
     /**

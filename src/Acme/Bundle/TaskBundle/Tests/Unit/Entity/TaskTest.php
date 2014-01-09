@@ -3,6 +3,7 @@
 namespace Acme\Bundle\TaskBundle\Tests\Unit\Entity;
 
 use Oro\Bundle\UserBundle\Entity\User;
+use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
 use Acme\Bundle\TaskBundle\Entity\Task;
 use Acme\Bundle\TaskBundle\Entity\TaskStatus;
@@ -27,12 +28,47 @@ class TaskTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($id, $this->task->getId());
     }
 
-    public function testText()
+    public function testTitle()
     {
-        $this->assertNull($this->task->getText());
+        $this->assertNull($this->task->getTitle());
         $text = 'test';
-        $this->task->setText($text);
-        $this->assertEquals($text, $this->task->getText());
+        $this->task->setTitle($text);
+        $this->assertEquals($text, $this->task->getTitle());
+    }
+
+    public function testDescription()
+    {
+        $this->assertNull($this->task->getDescription());
+        $text = 'test';
+        $this->task->setDescription($text);
+        $this->assertEquals($text, $this->task->getDescription());
+    }
+
+    public function testRelatedContacts()
+    {
+        $this->assertInstanceOf('Doctrine\\Common\\Collections\\ArrayCollection', $this->task->getRelatedContacts());
+        $this->assertTrue($this->task->getRelatedContacts()->isEmpty());
+
+        $firstContact = new Contact();
+        $firstContact->setId(100);
+
+        $this->task->addRelatedContact($firstContact);
+
+        $this->assertEquals(1, $this->task->getRelatedContacts()->count());
+        $this->assertEquals($firstContact, $this->task->getRelatedContacts()->first());
+
+        $secondContact = new Contact();
+        $secondContact->setId(200);
+
+        $this->task->addRelatedContact($secondContact);
+
+        $this->assertEquals(2, $this->task->getRelatedContacts()->count());
+        $this->assertEquals($secondContact, $this->task->getRelatedContacts()->last());
+
+        $this->task->removeRelatedContact($firstContact);
+
+        $this->assertEquals(1, $this->task->getRelatedContacts()->count());
+        $this->assertEquals($secondContact, $this->task->getRelatedContacts()->first());
     }
 
     public function testStatus()
@@ -41,6 +77,14 @@ class TaskTest extends \PHPUnit_Framework_TestCase
         $status = new TaskStatus('test');
         $this->task->setStatus($status);
         $this->assertEquals($status, $this->task->getStatus());
+    }
+
+    public function testAssignee()
+    {
+        $this->assertNull($this->task->getAssignee());
+        $assignee = new User();
+        $this->task->setAssignee($assignee);
+        $this->assertEquals($assignee, $this->task->getAssignee());
     }
 
     public function testOwner()
