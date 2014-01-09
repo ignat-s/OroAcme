@@ -100,6 +100,18 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 1. Add actions
 2. Add properties
 
+## Navigation menu
+1. Add "Acme" and "Tasks" items into application menu
+2. Add "Show tasks list" and "Create new task" items into shortcuts
+
+## Navigation titles
+1. Add oro_titles with titles for index, create, view, update
+2. Run app/console oro:navigation:init
+3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
+3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig
+3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
+
+
 Notes:
 
 1. Translation issues, for example OroUser:User:index.html.twig when using addButton

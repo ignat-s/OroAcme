@@ -1,0 +1,40 @@
+oro_menu_config:
+    items:
+        acme_tab:
+            label: Acme
+            uri: '#'
+
+        task_list:
+            label: acme.task.entity_plural_label
+            route: acme_task_index
+            extras:
+                routes: ['acme_task_*']
+                description: List of tasks
+
+        shortcut_task_create:
+            label: Create new task
+            route: acme_task_create
+            extras:
+                description: Create new task
+        shortcut_task_list:
+            label: Show tasks list
+            route: acme_task_index
+            extras:
+                description: List of tasks
+
+    tree:
+        application_menu:
+            children:
+                acme_tab:
+                    children:
+                        task_list: ~
+        shortcuts:
+            children:
+                shortcut_task_create: ~
+                shortcut_task_list: ~
+
+oro_titles:
+    acme_task_index: ~
+    acme_task_view: %%entity.title%%
+    acme_task_create: Create %%entityName%%
+    acme_task_update: %%entity.title%% - Edit

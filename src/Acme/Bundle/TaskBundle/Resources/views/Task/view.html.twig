@@ -1,6 +1,8 @@
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 
+{% oro_title_set({params : {"%entity.title%": entity.title }}) %}
+
 {% block navButtons %}
     {{ UI.editButton({
         'path' : path('acme_task_update', { id: entity.id }),

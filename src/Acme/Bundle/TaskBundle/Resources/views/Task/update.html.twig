@@ -1,11 +1,10 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
 {% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 
+{% oro_title_set({params : {"%entity.title%": entity.title }}) %}
+
 {% set entityId = form.vars.value.id %}
 
-{% set title = entityId
-    ? 'Update'|trans ~ ' ' ~ 'acme.task.entity_label'|trans
-    : 'New'|trans ~ ' ' ~ 'acme.task.entity_label'|trans %}
 {% set formAction = entityId ? path('acme_task_update', { 'id': entityId}) : path('acme_task_create') %}
 
 {% block navButtons %}
