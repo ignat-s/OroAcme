@@ -1,0 +1,12 @@
+acme:
+    tasks_grid:
+        title.label: Title
+        status.label: Status
+        assignee.label: Assignee
+        owner.label: Owner
+        created_at.label: Created At
+        updated_at.label: Updated At
+
+    task:
+        entity_label: Task
+        entity_plural_label: Tasks

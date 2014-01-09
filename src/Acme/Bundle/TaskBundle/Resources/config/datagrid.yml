@@ -1,0 +1,79 @@
+datagrid:
+    tasks_grid:
+        extended_entity_name: %acme_task.task.class%
+        source:
+            type: orm
+            query:
+                select:
+                    - task.id
+                    - task.title
+                    - task.description
+                    - status.label as statusLabel
+                    - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
+                    - CONCAT(owner.firstName, CONCAT(' ', owner.lastName)) as ownerName
+                    - task.createdAt
+                    - task.updatedAt
+                from:
+                    - { table: %acme_task.task.class%, alias: task }
+                join:
+                    left:
+                        - { join: task.status, alias: status }
+                        - { join: task.owner, alias: owner }
+                        - { join: task.assignee, alias: assignee }
+        columns:
+            title:
+                label: acme.tasks_grid.title.label
+            statusLabel:
+                label: acme.tasks_grid.status.label
+            assigneeName:
+                label: acme.tasks_grid.assignee.label
+            ownerName:
+                label: acme.tasks_grid.owner.label
+            createdAt:
+                label: acme.tasks_grid.created_at.label
+                frontend_type: datetime
+            updatedAt:
+                label: acme.tasks_grid.updated_at.label
+                frontend_type: datetime
+        properties:
+            id: ~
+        sorters:
+            columns:
+                title:
+                    data_name: task.title
+                statusLabel:
+                    data_name: status.label
+                assigneeName:
+                    data_name: assigneeName
+                ownerName:
+                    data_name: ownerName
+                createdAt:
+                    data_name: task.createdAt
+                updatedAt:
+                    data_name: task.updatedAt
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                title:
+                    type: string
+                    data_name: task.title
+                statusLabel:
+                    type: entity
+                    data_name: status.name
+                    options:
+                        field_options:
+                            class: AcmeTaskBundle:TaskStatus
+                            property: label
+                assigneeName:
+                    type: string
+                    data_name: assigneeName
+                ownerName:
+                    type: string
+                    data_name: ownerName
+                createdAt:
+                    type: datetime
+                    data_name: task.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: task.updatedAt

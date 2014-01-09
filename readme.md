@@ -39,6 +39,8 @@ git submodule add https://github.com/ignat-s/Acme.git src/Acme
 1. Add submodule git submodule add https://github.com/ignat-s/Acme.git src/Acme
 2. Create bundle class Acme\Bundle\TaskBundle\AcmeTaskBundle
 3. Create extension class Acme\Bundle\TaskBundle\DependencyInjection\AcmeTaskExtension
+4. Add Acme/Bundle/TaskBundle/Resources/config/services.yml
+5. Add Acme/Bundle/TaskBundle/Resources/translations/messages.en.yml
 
 ## Register bundle
 
@@ -75,6 +77,8 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 
 ## Create a pages with list, create/edit forms
 
-1. Add controller class Acme\Bundle\TaskBundle\Controller\TaskController
-2. Add Acme/Bundle/TaskBundle/Resources/config/oro/routing.yml
-3. Add template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
+1. Add grid config Acme/Bundle/TaskBundle/Resources/config/datagrid.yml
+2. Add controller class Acme\Bundle\TaskBundle\Controller\TaskController
+3. Add Acme/Bundle/TaskBundle/Resources/config/oro/routing.yml
+4. Add template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
+5.

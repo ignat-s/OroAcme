@@ -1,0 +1,4 @@
+acme_task_bundle:
+    resource:     "@AcmeTaskBundle/Controller"
+    type:         annotation
+    prefix:       /acme
