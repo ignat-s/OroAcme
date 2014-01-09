@@ -1,6 +1,6 @@
 datagrid:
     tasks_grid:
-        extended_entity_name: %acme_task.task.class%
+        extended_entity_name: %acme_task.entity.class%
         source:
             type: orm
             query:
@@ -14,7 +14,7 @@ datagrid:
                     - task.createdAt
                     - task.updatedAt
                 from:
-                    - { table: %acme_task.task.class%, alias: task }
+                    - { table: %acme_task.entity.class%, alias: task }
                 join:
                     left:
                         - { join: task.status, alias: status }
@@ -22,18 +22,18 @@ datagrid:
                         - { join: task.assignee, alias: assignee }
         columns:
             title:
-                label: acme.tasks_grid.title.label
+                label: acme.task.title.label
             statusLabel:
-                label: acme.tasks_grid.status.label
+                label: acme.task.status.label
             assigneeName:
-                label: acme.tasks_grid.assignee.label
+                label: acme.task.assignee.label
             ownerName:
-                label: acme.tasks_grid.owner.label
+                label: acme.task.owner.label
             createdAt:
-                label: acme.tasks_grid.created_at.label
+                label: acme.task.created_at.label
                 frontend_type: datetime
             updatedAt:
-                label: acme.tasks_grid.updated_at.label
+                label: acme.task.updated_at.label
                 frontend_type: datetime
         properties:
             id: ~

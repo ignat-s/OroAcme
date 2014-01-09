@@ -40,7 +40,7 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     protected $description;
 
@@ -89,7 +89,7 @@ class Task
     /**
      * @var \DateTime $updated
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
 
@@ -260,7 +260,6 @@ class Task
     public function prePersist()
     {
         $this->createdAt = new \DateTime();
-        $this->updatedAt = $this->createdAt;
     }
 
     /**

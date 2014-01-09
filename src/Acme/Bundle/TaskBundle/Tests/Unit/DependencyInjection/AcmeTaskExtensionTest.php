@@ -27,6 +27,6 @@ class AcmeTaskExtensionTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $this->extension->load(array(), $this->container);
-        $this->assertTrue($this->container->hasParameter('acme_task.task.class'));
+        $this->assertTrue($this->container->hasParameter('acme.task.entity.class'));
     }
 }

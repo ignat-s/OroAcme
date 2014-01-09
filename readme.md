@@ -75,10 +75,33 @@ app/console doctrine:schema:update --force
 app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle/DataFixtures/ --append
 ```
 
-## Create a pages with list, create/edit forms
+## Tasks list
 
 1. Add grid config Acme/Bundle/TaskBundle/Resources/config/datagrid.yml
 2. Add controller class Acme\Bundle\TaskBundle\Controller\TaskController
 3. Add Acme/Bundle/TaskBundle/Resources/config/oro/routing.yml
 4. Add template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
-5.
+5. Demonstrate tasks grid
+
+## Create/update task form
+1. Create form type Acme\Bundle\TaskBundle\Form\Type\TaskType (title, status, description, assignee, owner)
+2. Create Acme/Bundle/TaskBundle/Resources/config/validation.yml
+2. Create controller actions
+3. Add create button to template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
+4. Create template Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
+5. Demonstrate create/edit task
+6. Add task view page
+
+## Create view task page
+1. Add controller action
+2. Add Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig
+
+## Add task delete action
+
+
+Notes:
+
+1. Translation issues, for example OroUser:User:index.html.twig when using addButton
+2. Translation of entities is not convenient and will not work in all languages:
+   'Update'|trans ~ ' ' ~ 'oro.user.group.entity_label'|trans
+   'New'|trans ~ ' ' ~ 'oro.user.group.entity_label'|trans

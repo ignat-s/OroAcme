@@ -1,0 +1,54 @@
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+
+{% set entityId = form.vars.value.id %}
+
+{% set title = entityId
+    ? 'Update'|trans ~ ' ' ~ 'acme.task.entity_label'|trans
+    : 'New'|trans ~ ' ' ~ 'acme.task.entity_label'|trans %}
+{% set formAction = entityId ? path('acme_task_update', { 'id': entityId}) : path('acme_task_create') %}
+
+{% block navButtons %}
+    {{ UI.saveAndStayButton() }}
+    {{ UI.saveAndCloseButton() }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% if entityId %}
+        {% set breadcrumbs = {
+            'entity': form.vars.value,
+            'indexPath': path('acme_task_index'),
+            'indexLabel': 'acme.task.entity_plural_label'|trans,
+            'entityTitle': form.vars.value.title
+        } %}
+        {{ parent() }}
+    {% else %}
+        {% include 'OroUIBundle::page_title_block.html.twig' %}
+    {% endif %}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set id = 'task-form' %}
+
+    {% set dataBlocks = [{
+        'title': 'General'|trans,
+        'class': 'active'|trans,
+        'subblocks': [
+            {
+                'title': '',
+                'data': [
+                    form_row(form.status),
+                    form_row(form.title),
+                    form_row(form.description),
+                    form_row(form.assignee),
+                ]
+            }
+        ]
+    }] %}
+
+    {% set data = {
+        'formErrors': form_errors(form)? form_errors(form) : null,
+        'dataBlocks': dataBlocks,
+    } %}
+    {{ parent() }}
+{% endblock content_data %}

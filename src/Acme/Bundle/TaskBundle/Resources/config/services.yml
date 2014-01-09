@@ -1,2 +1,11 @@
 parameters:
-    acme_task.task.class: Acme\Bundle\TaskBundle\Entity\Task
+    acme_task.entity.class: Acme\Bundle\TaskBundle\Entity\Task
+    acme_task.form.type.task.class: Acme\Bundle\TaskBundle\Form\Type\TaskType
+
+services:
+    acme_task.form.type.task:
+        class: %acme_task.form.type.task.class%
+        arguments:
+            - %acme_task.entity.class%
+        tags:
+            - { name: form.type, alias: acme_task }
