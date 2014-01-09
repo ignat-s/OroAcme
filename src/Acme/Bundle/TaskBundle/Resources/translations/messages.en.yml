@@ -9,10 +9,10 @@ acme:
         updated_at.label: Updated At
 
         datagrid:
-            delete: Delete
+            view_action.label: View task
+            update_action.label: Update task
 
         entity_label: Task
         entity_plural_label: Tasks
         create_button_label: Create Task
         saved_message: Task Saved
-

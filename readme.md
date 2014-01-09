@@ -96,8 +96,9 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 1. Add controller action
 2. Add Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig
 
-## Add task delete action
-
+## Add actions to grid
+1. Add actions
+2. Add properties
 
 Notes:
 

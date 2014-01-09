@@ -97,7 +97,8 @@ class TaskController extends Controller
                         'parameters' => array('id' => $task->getId()),
                     ),
                     array(
-                        'route' => 'acme_task_index'
+                        'route' => 'acme_task_view',
+                        'parameters' => array('id' => $task->getId()),
                     )
                 );
             }

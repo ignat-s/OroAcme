@@ -37,6 +37,14 @@ datagrid:
                 frontend_type: datetime
         properties:
             id: ~
+            view_link:
+                type:       url
+                route:      acme_task_view
+                params:     [ id ]
+            update_link:
+                type:       url
+                route:      acme_task_update
+                params:     [ id ]
         sorters:
             columns:
                 title:
@@ -77,3 +85,15 @@ datagrid:
                 updatedAt:
                     type: datetime
                     data_name: task.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: acme.task.datagrid.view_action.label
+                icon: user
+                link: view_link
+                rowAction: true
+            update:
+                type: navigate
+                label: acme.task.datagrid.update_action.label
+                icon: edit
+                link: update_link
