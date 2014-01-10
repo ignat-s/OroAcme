@@ -91,9 +91,11 @@ datagrid:
                 label: acme.task.datagrid.view_action.label
                 icon: user
                 link: view_link
+                acl_resource:  acme_task_view
                 rowAction: true
             update:
                 type: navigate
                 label: acme.task.datagrid.update_action.label
                 icon: edit
                 link: update_link
+                acl_resource:  acme_task_update

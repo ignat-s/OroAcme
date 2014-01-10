@@ -56,10 +56,6 @@ class TaskType extends AbstractType
                 'assignee',
                 'oro_user_select',
                 array('required' => false, 'label' => 'acme.task.assignee.label')
-            )->add(
-                'owner',
-                'oro_user_select',
-                array('required' => true, 'label' => 'acme.task.owner.label')
             );
     }
 

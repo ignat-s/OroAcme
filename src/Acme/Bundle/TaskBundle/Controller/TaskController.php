@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\UserBundle\Entity\User;
 
 use Acme\Bundle\TaskBundle\Entity\Task;
@@ -18,8 +19,6 @@ use Acme\Bundle\TaskBundle\Entity\Task;
 class TaskController extends Controller
 {
     /**
-     *
-     *
      * @Route(
      *      ".{_format}",
      *      name="acme_task_index",
@@ -27,6 +26,12 @@ class TaskController extends Controller
      *      defaults={"_format" = "html"}
      * )
      * @Template
+     * @Acl(
+     *      id="acme_task_index",
+     *      type="entity",
+     *      class="AcmeTaskBundle:Task",
+     *      permission="VIEW"
+     * )
      */
     public function indexAction()
     {
@@ -36,6 +41,12 @@ class TaskController extends Controller
     /**
      * @Route("/view/{id}", name="acme_task_view", requirements={"id"="\d+"})
      * @Template
+     * @Acl(
+     *      id="acme_task_view",
+     *      type="entity",
+     *      class="AcmeTaskBundle:Task",
+     *      permission="VIEW"
+     * )
      */
     public function viewAction(Task $task)
     {
@@ -45,6 +56,12 @@ class TaskController extends Controller
     /**
      * @Route("/create", name="acme_task_create")
      * @Template("AcmeTaskBundle:Task:update.html.twig")
+     * @Acl(
+     *      id="acme_task_create",
+     *      type="entity",
+     *      class="AcmeTaskBundle:Task",
+     *      permission="CREATE"
+     * )
      */
     public function createAction()
     {
@@ -65,6 +82,12 @@ class TaskController extends Controller
     /**
      * @Route("/update/{id}", name="acme_task_update", requirements={"id"="\d+"})
      * @Template
+     * @Acl(
+     *      id="acme_task_update",
+     *      type="entity",
+     *      class="AcmeTaskBundle:Task",
+     *      permission="EDIT"
+     * )
      */
     public function updateAction(Task $entity)
     {

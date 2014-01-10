@@ -108,13 +108,79 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 1. Add oro_titles with titles for index, create, view, update
 2. Run app/console oro:navigation:init
 3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
-3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig
-3. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
+4. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig
+5. Add oro_title_set to Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
+
+## ACL
+1. Add annotation to Task
+@Config(
+    defaultValues={
+        "ownership"={
+            "owner_type"="USER",
+            "owner_field_name"="owner",
+            "owner_column_name"="owner_id"
+        },
+        "security"={
+            "type"="ACL"
+        }
+    }
+)
+2. Run command app/console oro:entity-config:update
+3. Remove owner from form type as it's automatically added
+4. Remove owner validation.yml as this constraint is embedded in field that automatically added
+5. Add ACL annotations to TaskController
+6. Go to roles and check Task entity
+7. Change VIEW permission in Administrator role for Task from System to User and check how grid automatically protects users, change VIEW to System again
+8. Change EDIT permission in Administrator role for Task from System to User and check permission error when you click on edit users
+9. Add ACL annotations to datagrid.yml
+10. Go to Task that is not with your owner and click edit to show permission error
+11. Add ACL checks to templates
+
+
+
+Questions:
+
+ACL:
+1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
+2. What do we support
+"
+ - **Class-Scope**: Allows to set permissions for all objects with the same type.
+ - **Object-Scope**: Allows to set permissions for one specific object.
+ - **Class-Field-Scope**: Allows to set permissions for all objects with the same type, but only to a specific field of the objects.
+ - **Object-Field-Scope**: Allows to set permissions for a specific object, and only to a specific field of that object.
+"
+3. What is the difference created in BU and assigned to BU?
+4. Business Unit ownersip type invalid image
+Mike was create Account C and make Second BU as owner, Robert was create Account D and make Child BU as owner
+5. All records in datagrids automatically protect with access levels?
+6. https://github.com/laboro/platform/blob/master/src/Oro/Bundle/SecurityBundle/Resources/doc/acl-manager.md
+entity: AcmeBundle:AcmeEntity
+Entity:AcmeBundle:SomeEntity
+7. After the setting new ACL permissions to an object, the changes must be saved. It can be done with flush function
+8. https://github.com/laboro/platform/blob/master/src/Oro/Bundle/SecurityBundle/Resources/doc/implementation.md
+"permissions"="VIEW;EDIT"
+9. @Acl annotations only on controllers?
+10.
+bindings:
+        - {  class: someClass, method: someMethod}
+11. Is it required to set id and where it's used?7
+
+     * @Acl(
+     *      id="acme_task_view",
+     *      type="entity",
+     *      class="AcmeTaskBundle:Task",
+     *      permission="VIEW"
+     * )
+12. After annotations are added do we need to execute any command?
+13. Ownership is required in most cases?
+14. Can ownership be changed by other bundle?
+15. Flush is required after changing acl permission is it means that ACL works using Doctrine (in Symfony's original ACL they use PDO directly)
+16. acl_resource in grid?
 
 
 Notes:
 
 1. Translation issues, for example OroUser:User:index.html.twig when using addButton
 2. Translation of entities is not convenient and will not work in all languages:
-   'Update'|trans ~ ' ' ~ 'oro.user.group.entity_label'|trans
+   'Update'|trans ~ ' ' ~ 'oro.user.grouAclManagerp.entity_label'|trans
    'New'|trans ~ ' ' ~ 'oro.user.group.entity_label'|trans

@@ -4,5 +4,3 @@ Acme\Bundle\TaskBundle\Entity\Task:
             - NotBlank: ~
         status:
             - NotBlank: ~
-        owner:
-            - NotBlank: ~

@@ -4,10 +4,12 @@
 {% oro_title_set({params : {"%entity.title%": entity.title }}) %}
 
 {% block navButtons %}
-    {{ UI.editButton({
-        'path' : path('acme_task_update', { id: entity.id }),
-        'entity_label': 'acme.task.entity_label'|trans
-    }) }}
+    {% if resource_granted('EDIT', entity) %}
+        {{ UI.editButton({
+            'path' : path('acme_task_update', { id: entity.id }),
+            'entity_label': 'acme.task.entity_label'|trans
+        }) }}
+    {% endif %}
 {% endblock navButtons %}
 
 {% block pageHeader %}
