@@ -1,2 +1,2 @@
 bundles:
-    - Acme\Bundle\TaskBundle\AcmeTaskBundle
+    - { name: Acme\Bundle\TaskBundle\AcmeTaskBundle, priority: 100 }

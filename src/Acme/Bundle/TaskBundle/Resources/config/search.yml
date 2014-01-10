@@ -1,0 +1,31 @@
+Acme\Bundle\TaskBundle\Entity\Task:
+    alias: acme_task
+    label: acme.task.entity_plural_label
+    route:
+        name: acme_task_view
+        parameters:
+            id: id
+    title_fields: [title]
+    search_template: AcmeTaskBundle:Task:searchResult.html.twig
+    fields:
+        -
+            name:                   title
+            target_type:            text
+            target_fields:          [title]
+        -
+            name: owner
+            relation_type: many-to-one
+            relation_fields:
+                -
+                    name: username
+                    target_type: text
+                    target_fields: [owner_username]
+
+        -
+            name: assignee
+            relation_type: many-to-one
+            relation_fields:
+                -
+                    name: username
+                    target_type: text
+                    target_fields: [assignee_username]

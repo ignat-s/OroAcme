@@ -136,6 +136,10 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 10. Go to Task that is not with your owner and click edit to show permission error
 11. Add ACL checks to templates
 
+## Search
+1. Add search.yml
+2. Add Acme/Bundle/TaskBundle/Resources/views/Task/searchResult.html.twig
+3. Demonstrate search
 
 
 Questions:
@@ -177,6 +181,10 @@ bindings:
 15. Flush is required after changing acl permission is it means that ACL works using Doctrine (in Symfony's original ACL they use PDO directly)
 16. acl_resource in grid?
 
+Search:
+1. Why we need all_data in target fields?
+2. How search works
+
 
 Notes:
 
@@ -184,3 +192,11 @@ Notes:
 2. Translation of entities is not convenient and will not work in all languages:
    'Update'|trans ~ ' ' ~ 'oro.user.grouAclManagerp.entity_label'|trans
    'New'|trans ~ ' ' ~ 'oro.user.group.entity_label'|trans
+
+Search
+
+1. If "search_template" option is missing error occurred
+An exception has been thrown during the rendering of a template ("Trying to access not existing parameter: "template"") in OroSearchBundle:Search:searchResults.html.twig at line 49.
+2. If "title_fields" is empty error displayed on search result page:
+Catchable fatal error: Object of class Acme\Bundle\TaskBundle\Entity\Task could not be converted to string in /home/ignat/dev/orocrm-training/vendor/oro/platform/src/Oro/Bundle/SearchBundle/EventListener/PrepareResultItemListener.php on line 134
+3. Search.yml files are not validated

@@ -3,7 +3,6 @@
 namespace Acme\Bundle\TaskBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Acme\Bundle\TaskBundle\Entity\TaskStatus;
@@ -11,7 +10,7 @@ use Acme\Bundle\TaskBundle\Entity\TaskStatus;
 /**
  * Loads task statuses.
  */
-class LoadTaskStatusData extends AbstractFixture implements OrderedFixtureInterface
+class LoadTaskStatusData extends AbstractFixture
 {
     /**
      * @var array
@@ -46,13 +45,5 @@ class LoadTaskStatusData extends AbstractFixture implements OrderedFixtureInterf
     protected function isStatusExist(ObjectManager $manager, $statusName)
     {
         return null !== $manager->getRepository('AcmeTaskBundle:TaskStatus')->find($statusName);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
-    {
-        return 201;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Bundle\TaskBundle\DataFixtures\ORM;
+namespace Acme\Bundle\TaskBundle\DataFixtures\Demo;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -102,7 +102,12 @@ class LoadTaskData extends AbstractFixture implements OrderedFixtureInterface
 
             $contactsCount = rand(0, 4);
             while ($contactsCount--) {
-                $task->addRelatedContact($this->getRandomEntity('OroCRMContactBundle:Contact', $manager));
+                $contact = $this->getRandomEntity('OroCRMContactBundle:Contact', $manager);
+                if ($contact) {
+                    $task->addRelatedContact($contact);
+                } else {
+                    break;
+                }
             }
 
             $manager->persist($task);
@@ -157,6 +162,6 @@ class LoadTaskData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 202;
+        return 1000;
     }
 }

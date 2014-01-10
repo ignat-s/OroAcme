@@ -1,0 +1,30 @@
+{#
+    Available variables:
+    * entity       - task entity Acme\Bundle\TaskBundle\Entity\Task or null
+    * indexer_item - indexer item Oro\Bundle\SearchBundle\Query\Result\Item
+#}
+{% extends 'OroSearchBundle:Search:searchResultItem.html.twig' %}
+
+{% set showImage = true %}
+
+{% set imagePath = entity ? entity.owner.imagePath : null %}
+
+{% set recordUrl = indexer_item.recordUrl %}
+{% set title = entity ? entity.title : indexer_item.recordTitle %}
+
+{% set entityType = 'acme.task.entity_label'|trans %}
+
+{% set entityInfo = [
+    {'title': 'acme.task.owner.label'|trans, 'value': entity.owner ? _self.renderUserValue(entity.owner)  : 'N/A'},
+    {'title': 'acme.task.assignee.label'|trans, 'value': entity.assignee ? _self.renderUserValue(entity.assignee)  : 'N/A'},
+    {'title': 'acme.task.created_at.label'|trans, 'value': entity.createdAt ? entity.createdAt|date('Y-m-d H:i:s') : 'N/A'},
+    {'title': 'acme.task.updated_at.label'|trans, 'value': entity.updatedAt ? entity.updatedAt|date('Y-m-d H:i:s') : 'N/A'},
+] %}
+
+{% macro renderUserValue(user) %}
+    {% if resource_granted('VIEW', user) %}
+        <a href="{{ path('oro_user_view', {id: user.id}) }}">{{ user.username }}</a>
+    {% else %}
+        {{ user.username }}
+    {% endif %}
+{% endmacro %}
