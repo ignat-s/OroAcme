@@ -17,14 +17,15 @@
 {% set entityInfo = [
     {'title': 'acme.task.owner.label'|trans, 'value': entity.owner ? _self.renderUserValue(entity.owner)  : 'N/A'},
     {'title': 'acme.task.assignee.label'|trans, 'value': entity.assignee ? _self.renderUserValue(entity.assignee)  : 'N/A'},
-    {'title': 'acme.task.created_at.label'|trans, 'value': entity.createdAt ? entity.createdAt|date('Y-m-d H:i:s') : 'N/A'},
-    {'title': 'acme.task.updated_at.label'|trans, 'value': entity.updatedAt ? entity.updatedAt|date('Y-m-d H:i:s') : 'N/A'},
+    {'title': 'acme.task.created_at.label'|trans, 'value': entity.createdAt ? entity.createdAt|oro_format_datetime : 'N/A'},
+    {'title': 'acme.task.updated_at.label'|trans, 'value': entity.updatedAt ? entity.updatedAt|oro_format_datetime : 'N/A'},
 ] %}
 
 {% macro renderUserValue(user) %}
+    {{ user|oro_format_name }} -
     {% if resource_granted('VIEW', user) %}
         <a href="{{ path('oro_user_view', {id: user.id}) }}">{{ user.username }}</a>
     {% else %}
-        {{ user.username }}
+        ({{ user.username }})
     {% endif %}
 {% endmacro %}

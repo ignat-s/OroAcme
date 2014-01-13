@@ -28,10 +28,9 @@
             <div class="responsive-block">
                 {%- set assigneeData -%}
                     {%- if entity.assignee -%}
+                        {{ entity.assignee|oro_format_name }} -
                         {% if resource_granted('oro_user_user_view') %}
-                            <a href="{{ path('oro_user_view', {'id': entity.assignee.id}) }}">
-                                {{ entity.assignee }}
-                            </a>
+                            <a href="{{ path('oro_user_view', {'id': entity.assignee.id}) }}">{{ entity.assignee }}</a>
                         {% else %}
                             {{ entity.assignee }}
                         {% endif %}
@@ -39,10 +38,9 @@
                 {%- endset -%}
 
                 {%- set ownerData -%}
+                    {{ entity.owner|oro_format_name }} -
                     {% if resource_granted('oro_user_user_view') %}
-                        <a href="{{ path('oro_user_view', {'id': entity.owner.id}) }}">
-                            {{ entity.owner }}
-                        </a>
+                        <a href="{{ path('oro_user_view', {'id': entity.owner.id}) }}">{{ entity.owner }}</a>
                     {% else %}
                         {{ entity.owner }}
                     {% endif %}

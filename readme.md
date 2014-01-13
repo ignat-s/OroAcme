@@ -141,6 +141,25 @@ app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle
 2. Add Acme/Bundle/TaskBundle/Resources/views/Task/searchResult.html.twig
 3. Demonstrate search
 
+# Localization
+1. Add formatting of owner and assignee name on the task view
+2. Add formatting of created at/updated at the task search result
+3. Show other twig function for formatting: oro_format_address, oro_format_datetime, oro_format_date, oro_format_time,
+oro_format_name, oro_format_number, oro_format_currency, oro_format_decimal, oro_format_percent, oro_format_spellout,
+oro_format_duration, oro_format_ordinal
+
+# DataAudit
+1. Add Loggable annotation to Task and "dataaudit"={"auditable"=true}
+2. Add to Task fields
+     * @Oro\Versioned
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+3. Run commands to update config
+cache:clear
+oro:entity-config:init
+oro:entity-config:update
+We have a bug here https://magecore.atlassian.net/browse/BAP-2846
+
+4. Demonstrate how auditable works
 
 Questions:
 

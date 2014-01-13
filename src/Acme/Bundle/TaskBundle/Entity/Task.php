@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+
+use Oro\Bundle\DataAuditBundle\Metadata\Annotation as Oro;
 
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -19,6 +22,7 @@ use Oro\Bundle\UserBundle\Entity\User;
  *      @ORM\Index(name="acme_task_description_idx", columns={"description"})
  * })
  * @ORM\HasLifecycleCallbacks()
+ * @Oro\Loggable
  * @ORM\Entity
  * @Config(
  *  defaultValues={
@@ -29,7 +33,8 @@ use Oro\Bundle\UserBundle\Entity\User;
  *      },
  *      "security"={
  *          "type"="ACL"
- *      }
+ *      },
+ *      "dataaudit"={"auditable"=true}
  *  }
  * )
  */
@@ -48,6 +53,8 @@ class Task
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Oro\Versioned
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $title;
 
@@ -55,6 +62,8 @@ class Task
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Oro\Versioned
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $description;
 
@@ -66,6 +75,8 @@ class Task
      *      joinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
+     * @Oro\Versioned
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $relatedContacts;
 
@@ -74,6 +85,8 @@ class Task
      *
      * @ORM\ManyToOne(targetEntity="Acme\Bundle\TaskBundle\Entity\TaskStatus")
      * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
+     * @Oro\Versioned("getLabel")
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $status;
 
@@ -82,6 +95,8 @@ class Task
      *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Oro\Versioned("getUsername")
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $assignee;
 
@@ -90,6 +105,8 @@ class Task
      *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Oro\Versioned("getUsername")
+     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      */
     protected $owner;
 
