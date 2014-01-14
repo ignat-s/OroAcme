@@ -169,7 +169,23 @@ We have a bug here https://magecore.atlassian.net/browse/BAP-2846
 6. Add delete_link property and delete action to datagrid.yml
 7. Add delete button to task view
 
-Questions:
+# Configuration
+1. Add Acme\Bundle\TaskBundle\DependencyInjection\Configuration
+2. Update Acme\Bundle\TaskBundle\DependencyInjection\AcmeTaskExtension
+3. Add Acme/Bundle/TaskBundle/Resources/config/system_configuration.yml
+4. Go to System -> Configuration and check new settings
+
+# Cron
+1. Update cron in OS
+sudo crontab -e
+*/1 * * * * /usr/local/bin/php /path/to/app/console --env=prod oro:cron >> /dev/null
+2. Update messages.en.yml
+3. Add Acme\Bundle\TaskBundle\Entity\Repository\TaskRepository and update Task entity Entity annotation
+4. Add Acme\Bundle\TaskBundle\Model\Statistics
+5. Update services.yml with acme_task.statistics service
+6. Add Acme\Bundle\TaskBundle\Command\SendStatisticsCommand
+7. Add AcmeTaskBundle:Task:statisticsMail.txt.twig
+8. Go to System -> Job Queue and check job executions
 
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
@@ -227,3 +243,9 @@ An exception has been thrown during the rendering of a template ("Trying to acce
 2. If "title_fields" is empty error displayed on search result page:
 Catchable fatal error: Object of class Acme\Bundle\TaskBundle\Entity\Task could not be converted to string in /home/ignat/dev/orocrm-training/vendor/oro/platform/src/Oro/Bundle/SearchBundle/EventListener/PrepareResultItemListener.php on line 134
 3. Search.yml files are not validated
+
+
+Cron
+1. Run daemon in UI?
+2. Updating cron schedule of command is not supported?
+3. Command to run cron in bash in invalid?

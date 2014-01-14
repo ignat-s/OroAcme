@@ -25,7 +25,7 @@ use Oro\Bundle\UserBundle\Entity\User;
  * })
  * @ORM\HasLifecycleCallbacks()
  * @Oro\Loggable
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acme\Bundle\TaskBundle\Entity\Repository\TaskRepository")
  * @Config(
  *  defaultValues={
  *      "ownership"={

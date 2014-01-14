@@ -1,0 +1,49 @@
+oro_system_configuration:
+    groups:
+        acme:
+            title: acme.task.send_statistics.config.group.acme.label
+        acme_task:
+            title: acme.task.send_statistics.config.group.acme_task.label
+        acme_task_settings:
+            title: acme.task.send_statistics.config.group.acme_task_settings.label
+        acme_task_settings_send_statistics:
+            title: acme.task.send_statistics.config.group.acme_task_settings_send_statistics.label
+
+    fields:
+        acme_task.send_statistics_enabled:
+            type: oro_config_checkbox
+            priority: 40
+            options:
+                label: acme.task.send_statistics.config.enabled.label
+        acme_task.send_statistics_cron_schedule:
+            type: text
+            priority: 30
+            options:
+                label: acme.task.send_statistics.config.cron_schedule.label
+                tooltip: acme.task.send_statistics.config.cron_schedule.tooltip
+                required: true
+        acme_task.send_statistics_email_to:
+            type: email
+            priority: 20
+            options:
+                label: acme.task.send_statistics.config.email_to.label
+        acme_task.send_statistics_email_from:
+            type: email
+            priority: 10
+            options:
+                label: acme.task.send_statistics.config.email_from.label
+
+    tree:
+        system_configuration:
+            acme:
+                children:
+                    acme_task:
+                        children:
+                            acme_task_settings:
+                                children:
+                                    acme_task_settings_send_statistics:
+                                        children:
+                                            - acme_task.send_statistics_enabled
+                                            - acme_task.send_statistics_email_to
+                                            - acme_task.send_statistics_email_from
+                                            - acme_task.send_statistics_cron_schedule
