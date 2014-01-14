@@ -1,6 +1,7 @@
 parameters:
     acme_task.entity.class: Acme\Bundle\TaskBundle\Entity\Task
     acme_task.form.type.task.class: Acme\Bundle\TaskBundle\Form\Type\TaskType
+    acme_task.form.type.task_api.class: Acme\Bundle\TaskBundle\Form\Type\TaskApiType
 
 services:
     acme_task.form.type.task:
@@ -9,3 +10,8 @@ services:
             - %acme_task.entity.class%
         tags:
             - { name: form.type, alias: acme_task }
+
+    acme_task.form.type.task_api:
+        class: %acme_task.form.type.task_api.class%
+        tags:
+            - { name: form.type, alias: acme_task_api }

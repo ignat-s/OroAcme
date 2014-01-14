@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use JMS\Serializer\Annotation as JMS;
+
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
@@ -46,6 +48,7 @@ class Task
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -55,6 +58,7 @@ class Task
      * @ORM\Column(name="title", type="string", length=255)
      * @Oro\Versioned
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Type("string")
      */
     protected $title;
 
@@ -64,6 +68,7 @@ class Task
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      * @Oro\Versioned
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Type("string")
      */
     protected $description;
 
@@ -77,6 +82,7 @@ class Task
      * )
      * @Oro\Versioned
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Exclude
      */
     protected $relatedContacts;
 
@@ -87,6 +93,8 @@ class Task
      * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
      * @Oro\Versioned("getLabel")
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Type("string")
+     * @JMS\Accessor(getter="getStatusName")
      */
     protected $status;
 
@@ -97,6 +105,8 @@ class Task
      * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned("getUsername")
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Type("integer")
+     * @JMS\Accessor(getter="getAssigneeId")
      */
     protected $assignee;
 
@@ -107,6 +117,8 @@ class Task
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned("getUsername")
      * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @JMS\Type("integer")
+     * @JMS\Accessor(getter="getOwnerId")
      */
     protected $owner;
 
@@ -114,6 +126,7 @@ class Task
      * @var \DateTime $created
      *
      * @ORM\Column(type="datetime")
+     * @JMS\Type("DateTime")
      */
     protected $createdAt;
 
@@ -121,6 +134,7 @@ class Task
      * @var \DateTime $updated
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * @JMS\Type("DateTime")
      */
     protected $updatedAt;
 
@@ -222,6 +236,14 @@ class Task
     }
 
     /**
+     * @return string
+     */
+    public function getStatusName()
+    {
+        return $this->getStatus() ? $this->getStatus()->getName() : null;
+    }
+
+    /**
      * @param \DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
@@ -270,6 +292,14 @@ class Task
     }
 
     /**
+     * @return int
+     */
+    public function getAssigneeId()
+    {
+        return $this->getAssignee() ? $this->getAssignee()->getId() : null;
+    }
+
+    /**
      * @param User $owner
      */
     public function setOwner($owner)
@@ -283,6 +313,14 @@ class Task
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOwnerId()
+    {
+        return $this->getOwner() ? $this->getOwner()->getId() : null;
     }
 
     /**
