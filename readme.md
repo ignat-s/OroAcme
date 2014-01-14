@@ -158,8 +158,16 @@ cache:clear
 oro:entity-config:init
 oro:entity-config:update
 We have a bug here https://magecore.atlassian.net/browse/BAP-2846
-
 4. Demonstrate how auditable works
+
+# Rest API
+1. Add JMS annotations to Task
+2. Add Acme/Bundle/TaskBundle/Controller/Api/Rest/TaskController
+3. Run cache:clear to warmup Acl annotations
+4. Update Acme/Bundle/TaskBundle/Resources/config/oro/routing.yml with api
+5. Check http://orocrm-training.local/app_dev.php/api/doc/ and demonstrate how it works
+6. Add delete_link property and delete action to datagrid.yml
+7. Add delete button to task view
 
 Questions:
 

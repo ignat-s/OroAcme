@@ -38,13 +38,17 @@ datagrid:
         properties:
             id: ~
             view_link:
-                type:       url
-                route:      acme_task_view
-                params:     [ id ]
+                type: url
+                route: acme_task_view
+                params: [ id ]
             update_link:
-                type:       url
-                route:      acme_task_update
-                params:     [ id ]
+                type: url
+                route: acme_task_update
+                params: [ id ]
+            delete_link:
+                type: url
+                route: acme_api_delete_task
+                params: [ id ]
         sorters:
             columns:
                 title:
@@ -99,3 +103,9 @@ datagrid:
                 icon: edit
                 link: update_link
                 acl_resource:  acme_task_update
+            delete:
+                type: delete
+                label: acme.task.datagrid.delete_action.label
+                link: delete_link
+                icon: trash
+                acl_resource: acme_task_delete
