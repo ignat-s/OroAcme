@@ -96,4 +96,12 @@ class TaskControllersTest extends WebTestCase
         ToolsAPI::assertJsonResponse($result, 200, 'text/html; charset=UTF-8');
         $this->assertContains('Task updated - Tasks - Acme', $result->getContent());
     }
+
+    public function testIndex()
+    {
+        $this->client->request('GET', $this->client->generate('acme_task_index'));
+        $result = $this->client->getResponse();
+        ToolsAPI::assertJsonResponse($result, 200, 'text/html; charset=UTF-8');
+        $this->assertContains('Task updated', $result->getContent());
+    }
 }
