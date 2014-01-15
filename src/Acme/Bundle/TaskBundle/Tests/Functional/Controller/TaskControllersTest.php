@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\UserBundle\Tests\Functional\Controller;
+namespace Acme\Bundle\TaskBundle\Tests\Functional\Controller;
 
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 use Oro\Bundle\TestFrameworkBundle\Test\ToolsAPI;
@@ -39,6 +39,9 @@ class TaskControllersTest extends WebTestCase
         $this->assertContains("Task Saved", $crawler->html());
     }
 
+    /**
+     * @depends testCreate
+     */
     public function testUpdate()
     {
         $result = ToolsAPI::getEntityGrid(
@@ -72,6 +75,9 @@ class TaskControllersTest extends WebTestCase
         $this->assertContains("Task Saved", $crawler->html());
     }
 
+    /**
+     * @depends testUpdate
+     */
     public function testView()
     {
         $result = ToolsAPI::getEntityGrid(
@@ -97,6 +103,9 @@ class TaskControllersTest extends WebTestCase
         $this->assertContains('Task updated - Tasks - Acme', $result->getContent());
     }
 
+    /**
+     * @depends testUpdate
+     */
     public function testIndex()
     {
         $this->client->request('GET', $this->client->generate('acme_task_index'));

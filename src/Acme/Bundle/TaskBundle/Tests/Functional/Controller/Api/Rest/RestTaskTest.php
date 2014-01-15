@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\UserBundle\Tests\Functional\Controller\Api\Rest;
+namespace Acme\Bundle\TaskBundle\Tests\Functional\Controller\Api\Rest;
 
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 use Oro\Bundle\TestFrameworkBundle\Test\ToolsAPI;
@@ -47,7 +47,7 @@ class RestTaskTest extends WebTestCase
         ToolsAPI::assertJsonResponse($result, 200);
 
         $tasks = json_decode($result->getContent(), true);
-        $this->assertGreaterThan(1, $tasks);
+        $this->assertCount(1, $tasks);
 
         return reset($tasks);
     }
