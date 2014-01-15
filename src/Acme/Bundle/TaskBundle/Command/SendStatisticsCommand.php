@@ -13,12 +13,6 @@ use Oro\Bundle\ConfigBundle\Config\UserConfigManager;
 
 use Acme\Bundle\TaskBundle\Model\Statistics;
 
-/**
- * Class SyncCommand
- * Console command implementation
- *
- * @package Oro\Bundle\IntegrationBundle\Command
- */
 class SendStatisticsCommand extends ContainerAwareCommand implements CronCommandInterface
 {
     const COMMAND_NAME   = 'oro:cron:acme:task:send-statistics';
@@ -74,30 +68,62 @@ class SendStatisticsCommand extends ContainerAwareCommand implements CronCommand
         /** @var \Twig_Environment $twig */
         $twig = $this->getContainer()->get('twig');
 
-        /** @var \Swift_Mailer $mailer */
-        $mailer = $this->getContainer()->get('mailer');
-
         $body = $twig->render(
             'AcmeTaskBundle:Task:statisticsMail.txt.twig',
             array('counts' => $statistics->getCounts())
         );
 
-        $message = $mailer->createMessage();
-        $message->setSubject($this->getTranslator()->trans('acme.task.send_statistics.mail.subject'));
-        if ($emailFrom) {
-            $message->setFrom($emailFrom);
-        }
-        $message->setTo($emailTo);
-        $message->setBody($body, 'text/plain');
-
-        $mailer->send($message);
+        $this->sendMail(
+            $emailFrom,
+            $emailTo,
+            $this->getTranslator()->trans('acme.task.send_statistics.mail.subject'),
+            $body
+        );
 
         $output->notice(
             $this->getTranslator()->trans(
                 'acme.task.send_statistics.mail_sent',
-                array('%emailTo%' => $emailTo)
+                array('%mailTo%' => $emailTo)
             )
         );
+    }
+
+    /**
+     * @param string $from
+     * @param string $to
+     * @param string $subject
+     * @param string $body
+     */
+    protected function sendMail($from, $to, $subject, $body)
+    {
+        /** @var \Swift_Mailer $mailer */
+        $mailer = $this->getContainer()->get('swiftmailer.mailer.default');
+
+        /** @var \Swift_Message $message */
+        $message = $mailer->createMessage();
+        $message->setSubject($subject);
+        if ($from) {
+            $message->setFrom($from);
+        }
+        $message->setTo($to);
+        $message->setBody($body, 'text/plain');
+
+        $mailer->send($message);
+        $this->flushMailSpool($mailer);
+    }
+
+    /**
+     * @param \Swift_Mailer $mailer
+     */
+    protected function flushMailSpool(\Swift_Mailer $mailer)
+    {
+        $transport = $mailer->getTransport();
+        if ($transport instanceof \Swift_Transport_SpoolTransport) {
+            $spool = $transport->getSpool();
+            if ($spool instanceof \Swift_MemorySpool) {
+                $spool->flushQueue($this->getContainer()->get('swiftmailer.transport.real'));
+            }
+        }
     }
 
     /**

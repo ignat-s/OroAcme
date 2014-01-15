@@ -187,6 +187,9 @@ sudo crontab -e
 7. Add AcmeTaskBundle:Task:statisticsMail.txt.twig
 8. Go to System -> Job Queue and check job executions
 
+## Email
+1. Configure SMPT
+
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
 2. What do we support
