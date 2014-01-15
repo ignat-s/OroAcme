@@ -1,0 +1,5 @@
+{{ 'acme.task.send_statistics.mail.body.header'|trans }}
+
+{% for entry in counts %}
+    {{ 'acme.task.send_statistics.mail.body.entry'|trans({'%entry.label%': entry.label, '%entry.count%': entry.count}) }}
+{% endfor %}

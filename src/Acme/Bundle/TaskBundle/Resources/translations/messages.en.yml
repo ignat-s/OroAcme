@@ -16,3 +16,21 @@ acme:
         entity_plural_label: Tasks
         create_button_label: Create Task
         saved_message: Task Saved
+
+        send_statistics.task_statistics_counted: Tasks statistics counted
+        send_statistics.statistics_email_not_configured: Statistics email is not configured. Please configure it in System -> Configuration -> Acme -> AcmeTaskBundle -> Settings -> Send statistics -> Email
+        send_statistics.mail_sent: Mail with statistics sent to %mailTo%
+        send_statistics.mail.subject: AcmeTask statistics
+        send_statistics.mail.body.header: Tasks statistics by status:
+        send_statistics.mail.body.entry: Tasks with status %entry.label%: %entry.count%
+
+        send_statistics.config.group.acme.label: Acme
+        send_statistics.config.group.acme_task.label: AcmeTaskBundle
+        send_statistics.config.group.acme_task_settings.label: Settings
+        send_statistics.config.group.acme_task_settings_send_statistics.label: Send statistics
+
+        send_statistics.config.enabled.label: Enabled
+        send_statistics.config.cron_schedule.label: Cron schedule
+        send_statistics.config.cron_schedule.tooltip: Use definition of cron schedule
+        send_statistics.config.email_to.label: Email to
+        send_statistics.config.email_from.label: Email from

@@ -1,7 +1,10 @@
 parameters:
     acme_task.entity.class: Acme\Bundle\TaskBundle\Entity\Task
+
     acme_task.form.type.task.class: Acme\Bundle\TaskBundle\Form\Type\TaskType
     acme_task.form.type.task_api.class: Acme\Bundle\TaskBundle\Form\Type\TaskApiType
+
+    acme_task.statistics.class: Acme\Bundle\TaskBundle\Model\Statistics
 
 services:
     acme_task.form.type.task:
@@ -15,3 +18,8 @@ services:
         class: %acme_task.form.type.task_api.class%
         tags:
             - { name: form.type, alias: acme_task_api }
+
+    acme_task.statistics:
+        class: %acme_task.statistics.class%
+        arguments:
+            - @doctrine.orm.entity_manager
