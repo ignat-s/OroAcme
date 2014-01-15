@@ -57,8 +57,13 @@ class Task
      *
      * @ORM\Column(name="title", type="string", length=255)
      * @Oro\Versioned
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      * @JMS\Type("string")
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $title;
 
@@ -67,7 +72,12 @@ class Task
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      * @Oro\Versioned
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      * @JMS\Type("string")
      */
     protected $description;
@@ -81,8 +91,13 @@ class Task
      *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      * @Oro\Versioned
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      * @JMS\Exclude
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $relatedContacts;
 
@@ -92,9 +107,14 @@ class Task
      * @ORM\ManyToOne(targetEntity="Acme\Bundle\TaskBundle\Entity\TaskStatus")
      * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
      * @Oro\Versioned("getLabel")
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      * @JMS\Type("string")
      * @JMS\Accessor(getter="getStatusName")
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $status;
 
@@ -104,9 +124,14 @@ class Task
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned("getUsername")
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      * @JMS\Type("integer")
      * @JMS\Accessor(getter="getAssigneeId")
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $assignee;
 
@@ -116,9 +141,14 @@ class Task
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned("getUsername")
-     * @ConfigField(defaultValues={"dataaudit"={"auditable"=true}})
      * @JMS\Type("integer")
      * @JMS\Accessor(getter="getOwnerId")
+     * @ConfigField(
+     *  defaultValues={
+     *      "dataaudit"={"auditable"=true},
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $owner;
 
@@ -127,6 +157,11 @@ class Task
      *
      * @ORM\Column(type="datetime")
      * @JMS\Type("DateTime")
+     * @ConfigField(
+     *  defaultValues={
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $createdAt;
 
@@ -135,6 +170,11 @@ class Task
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @JMS\Type("DateTime")
+     * @ConfigField(
+     *  defaultValues={
+     *      "email"={"available_in_template"=true}
+     *  }
+     * )
      */
     protected $updatedAt;
 

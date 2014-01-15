@@ -1,0 +1,20 @@
+@entityName = Acme\Bundle\TaskBundle\Entity\Task
+@subject = A new task was created
+@isSystem = 1
+
+<h1>A new task was created</h1>
+
+<dl>
+    <dt>Title</dt>
+    <dd>{{ entity.title }}</dd>
+    <dt>Description</dt>
+    <dd>{{ entity.description }}</dd>
+    <dt>Status</dt>
+    <dd>{{ entity.status }}</dd>
+    <dt>Assignee</dt>
+    <dd>{{ entity.assignee }}</dd>
+    <dt>Owner</dt>
+    <dd>{{ entity.owner }}</dd>
+    <dt>Created at</dt>
+    <dd>{{ entity.createdAt|oro_format_datetime }}</dd>
+</dl>

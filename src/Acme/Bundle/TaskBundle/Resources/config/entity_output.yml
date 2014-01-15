@@ -1,0 +1,4 @@
+Acme\Bundle\TaskBundle\Entity\Task:
+    icon_class:                         icon-envelope
+    name:                               acme.task.entity_label
+    description:                        acme.task.entity_description

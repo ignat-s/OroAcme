@@ -189,6 +189,15 @@ sudo crontab -e
 
 ## Email
 1. Configure SMPT
+2. Add Acme/Bundle/TaskBundle/Resources/config/entity_output.yml with data of Task entity
+3. Add template to Acme/Bundle/TaskBundle/DataFixtures/data/email/create_task.html.twig
+4. Add Acme\Bundle\TaskBundle\DataFixtures\ORM\LoadEmailTemplates
+5. Update @ConfigField in Task to support "email"={"available_in_template"=true}
+6. Load email templates
+app/console doctrine:fixture:load --append --fixtures src/OroAcme/src/Acme/Bundle/TaskBundle/DataFixtures/ORM/
+7. Go to System -> Emails -> Templates and check created template
+8. Go to System -> Notification -> Create notification rule
+9. Create task and check email
 
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
