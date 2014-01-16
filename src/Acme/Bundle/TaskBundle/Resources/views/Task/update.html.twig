@@ -33,7 +33,7 @@
 
     {% set dataBlocks = [{
         'title': 'General'|trans,
-        'class': 'active'|trans,
+        'class': 'active',
         'subblocks': [
             {
                 'title': '',
@@ -41,6 +41,7 @@
                     form_row(form.status),
                     form_row(form.title),
                     form_row(form.description),
+                    form_row(form.relatedContacts),
                     form_row(form.assignee),
                 ]
             }

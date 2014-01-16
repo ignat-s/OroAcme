@@ -56,6 +56,16 @@ class TaskType extends AbstractType
                 'assignee',
                 'oro_user_select',
                 array('required' => false, 'label' => 'acme.task.assignee.label')
+            )->add(
+                'relatedContacts',
+                'orocrm_contact_select',
+                array(
+                    'required' => false,
+                    'label' => 'acme.task.relatedContacts.label',
+                    'configs' => array(
+                        'multiple' => true
+                    )
+                )
             );
     }
 

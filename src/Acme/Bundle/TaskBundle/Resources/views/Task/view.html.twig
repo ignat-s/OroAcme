@@ -37,31 +37,18 @@
     {%- set taskInformation -%}
         <div class="row-fluid form-horizontal">
             <div class="responsive-block">
-                {%- set assigneeData -%}
-                    {%- if entity.assignee -%}
-                        {{ entity.assignee|oro_format_name }} -
-                        {% if resource_granted('oro_user_user_view') %}
-                            <a href="{{ path('oro_user_view', {'id': entity.assignee.id}) }}">{{ entity.assignee }}</a>
-                        {% else %}
-                            {{ entity.assignee }}
-                        {% endif %}
-                    {%- endif -%}
-                {%- endset -%}
-
-                {%- set ownerData -%}
-                    {{ entity.owner|oro_format_name }} -
-                    {% if resource_granted('oro_user_user_view') %}
-                        <a href="{{ path('oro_user_view', {'id': entity.owner.id}) }}">{{ entity.owner }}</a>
-                    {% else %}
-                        {{ entity.owner }}
-                    {% endif %}
-                {%- endset -%}
+                {% set relatedContactsData %}
+                    {% for contact in entity.relatedContacts %}
+                        {{ _self.renderContact(contact) }}{{ loop.last ? '' : ', ' }}
+                    {% endfor %}
+                {% endset %}
 
                 {{ UI.renderProperty('acme.task.status.label'|trans, entity.status) }}
                 {{ UI.renderProperty('acme.task.title.label'|trans, entity.title) }}
                 {{ UI.renderProperty('acme.task.description.label'|trans, entity.description) }}
-                {{ UI.renderProperty('acme.task.assignee.label'|trans, assigneeData) }}
-                {{ UI.renderProperty('acme.task.owner.label'|trans, ownerData) }}
+                {{ UI.renderProperty('acme.task.assignee.label'|trans, _self.renderUser(entity.assignee)) }}
+                {{ UI.renderProperty('acme.task.relatedContacts.label'|trans, relatedContactsData) }}
+                {{ UI.renderProperty('acme.task.owner.label'|trans, _self.renderUser(entity.owner)) }}
 
                 {# This is required to show extended fields #}
                 {{ entityConfig.renderDynamicFields(entity) }}
@@ -81,6 +68,30 @@
 
     {% set id = 'userView' %}
     {% set data = { 'dataBlocks': dataBlocks } %}
+
     {{ parent() }}
+
 {% endblock content_data %}
+
+{% macro renderUser(entity) %}
+    {% if entity %}
+        {{ entity|oro_format_name }} -
+        {% if resource_granted('VIEW', entity) %}
+            <a href="{{ path('oro_user_view', {'id': entity.id}) }}">{{ entity }}</a>
+        {% else %}
+            {{ entity }}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro renderContact(entity) %}
+    {% if entity %}
+        {%- if resource_granted('VIEW', entity) -%}
+            <a href="{{ path('orocrm_contact_view', {'id': entity.id}) }}">{{ entity|oro_format_name }}</a>
+        {%- else -%}
+            {{ entity|oro_format_name }}
+        {%- endif -%}
+    {% endif %}
+{% endmacro %}
+
 

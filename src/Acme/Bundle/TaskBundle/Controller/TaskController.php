@@ -3,7 +3,6 @@
 namespace Acme\Bundle\TaskBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -74,7 +73,6 @@ class TaskController extends Controller
         if ($securityToken->getUser() instanceof User) {
             $task->setOwner($securityToken->getUser());
         }
-
 
         return $this->update($task);
     }

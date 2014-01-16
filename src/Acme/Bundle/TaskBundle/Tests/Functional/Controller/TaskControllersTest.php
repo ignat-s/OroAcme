@@ -46,9 +46,9 @@ class TaskControllersTest extends WebTestCase
     {
         $result = ToolsAPI::getEntityGrid(
             $this->client,
-            'tasks_grid',
+            'acme_task_grid',
             array(
-                'tasks_grid[_filter][owner][value]' => 'John Doe'
+                'acme_task_grid[_filter][owner][value]' => 'John Doe'
             )
         );
 
@@ -82,9 +82,9 @@ class TaskControllersTest extends WebTestCase
     {
         $result = ToolsAPI::getEntityGrid(
             $this->client,
-            'tasks_grid',
+            'acme_task_grid',
             array(
-                'tasks_grid[_filter][owner][value]' => 'John Doe'
+                'acme_task_grid[_filter][owner][value]' => 'John Doe'
             )
         );
 
