@@ -17,6 +17,8 @@ use Oro\Bundle\DataAuditBundle\Metadata\Annotation as Oro;
 
 use Oro\Bundle\UserBundle\Entity\User;
 
+use Acme\Bundle\TaskBundle\Model\ExtendTask;
+
 /**
  * Task item
  *
@@ -40,7 +42,7 @@ use Oro\Bundle\UserBundle\Entity\User;
  *  }
  * )
  */
-class Task
+class Task extends ExtendTask
 {
     /**
      * @var integer

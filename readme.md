@@ -219,6 +219,12 @@ app/console cache:clear
 app/console assetic:dump
 11. Update TaskController, add method getAssignedTasksAction
 
+## Entity Extend
+1. Add extend ExtendTask
+2. Create string field
+3. Check datagrid, it should have a new column
+4. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig and check edit form
+5. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig and check view page
 
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
