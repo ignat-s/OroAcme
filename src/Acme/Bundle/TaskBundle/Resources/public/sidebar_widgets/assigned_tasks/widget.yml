@@ -1,0 +1,6 @@
+title: "Assigned Tasks"
+icon: "bundles/acmetask/images/task-icon-small.png"
+module: "acmetask/sidebar/widget/assigned_tasks"
+placement: "both"
+settings:
+    perPage: 5

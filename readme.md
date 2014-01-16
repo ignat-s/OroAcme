@@ -199,6 +199,27 @@ app/console doctrine:fixture:load --append --fixtures src/OroAcme/src/Acme/Bundl
 8. Go to System -> Notification -> Create notification rule
 9. Create task and check email
 
+## Sidebar Widgets
+1. Add Acme/Bundle/TaskBundle/Resources/public/sidebar_widgets/assigned_tasks/widget.yml
+2. Add Acme/Bundle/TaskBundle/Resources/public/sidebar_widgets/assigned_tasks/js/widget.js
+3. Add requirejs.yml
+4. Run commands
+cache:clear
+oro:requirejs:build
+5. Add Acme/Bundle/TaskBundle/Resources/translations/jsmessages.en.yml
+6. Add
+7. Update app/config.yml
+fos_js_routing:
+    routes_to_expose: [oro_*, acme_*]
+8. Run commands
+app/console fos:js-routing:dump --target web/js/routes.js
+app/console cache:clear
+9. Add Acme/Bundle/TaskBundle/Resources/public/css/acme.less
+10. Run commands
+app/console assetic:dump
+11. Update TaskController, add method getAssignedTasksAction
+
+
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)
 2. What do we support

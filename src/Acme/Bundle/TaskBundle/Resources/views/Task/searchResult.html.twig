@@ -7,7 +7,7 @@
 
 {% set showImage = true %}
 
-{% set imagePath = entity ? entity.owner.imagePath : null %}
+{% set imagePath = asset('bundles/acmetask/images/task-icon-medium.png') %}
 
 {% set recordUrl = indexer_item.recordUrl %}
 {% set title = entity ? entity.title : indexer_item.recordTitle %}

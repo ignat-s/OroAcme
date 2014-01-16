@@ -1,0 +1,3 @@
+css:
+  acmetask:
+      - 'bundles/acmetask/css/acme.less'

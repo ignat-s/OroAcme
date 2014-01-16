@@ -21,6 +21,8 @@ use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
 use Oro\Bundle\SecurityBundle\SecurityFacade;
 
+use Oro\Bundle\UserBundle\Entity\User;
+
 use Acme\Bundle\TaskBundle\Entity\Task;
 
 /**
@@ -70,6 +72,61 @@ class TaskController extends FOSRestController implements ClassResourceInterface
         return $this->handleView(
             $this->view($items, is_array($items) ? Codes::HTTP_OK : Codes::HTTP_NOT_FOUND)
         );
+    }
+
+    /**
+     * Get the list of tasks assigned to user
+     *
+     * @QueryParam(
+     *      name="perPage",
+     *      requirements="\d+",
+     *      nullable=true,
+     *      description="Number of items per page."
+     * )
+     * @ApiDoc(
+     *      description="Get the list of assigned tasks",
+     *      resource=true,
+     *      filters={
+     *          {"name"="perPage", "dataType"="integer"}
+     *      }
+     * )
+     * @AclAncestor("acme_task_index")
+     */
+    public function getAssignedTasksAction()
+    {
+        $currentUser = $this->getCurrentUser();
+
+        if (!$currentUser) {
+            $this->handleView($this->view(null, Codes::HTTP_FORBIDDEN));
+        }
+
+        $perPage = (int) $this->getRequest()->get('perPage', 5);
+        $perPage = $perPage > 0 ? $perPage : 5;
+
+        $qb = $this->getTaskRepository()
+            ->createQueryBuilder('task')
+            ->orderBy('task.createdAt', 'DESC')
+            ->where('task.assignee = :assignee')
+            ->setParameter('assignee', $currentUser)
+            ->setFirstResult(0)
+            ->setMaxResults($perPage);
+
+        $query = $this->getOrmAclHelper()->apply($qb);
+        $items = $query->execute();
+
+        return $this->handleView(
+            $this->view($items, is_array($items) ? Codes::HTTP_OK : Codes::HTTP_NOT_FOUND)
+        );
+    }
+
+    /**
+     * @return User|null
+     */
+    protected function getCurrentUser()
+    {
+        $securityToken = $this->get('security.context')->getToken();
+        return $securityToken ? $securityToken->getUser() : null;
+
     }
 
     /**
