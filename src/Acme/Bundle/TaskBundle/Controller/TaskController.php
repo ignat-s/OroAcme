@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Oro\Bundle\UserBundle\Entity\User;
 
 use Acme\Bundle\TaskBundle\Entity\Task;
@@ -65,6 +67,14 @@ class TaskController extends Controller
     public function createAction()
     {
         $task = new Task();
+
+        $assigneeId = (int) $this->getRequest()->get('assigneeId');
+        if ($assigneeId) {
+            $assignee = $this->getDoctrine()->getManager()->find('OroUserBundle:User', $assigneeId);
+            if ($assignee) {
+                $task->setAssignee($assignee);
+            }
+        }
 
         $defaultStatus = $this->getDoctrine()->getManager()->find('AcmeTaskBundle:TaskStatus', 'open');
         $task->setStatus($defaultStatus);
@@ -128,6 +138,19 @@ class TaskController extends Controller
         return array(
             'entity' => $task,
             'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Route("/assigned/{assigneeId}", name="acme_task_assigned_tasks", requirements={"assigneeId"="\d+"})
+     * @ParamConverter("assignee", class="OroUserBundle:User", options={"id" = "assigneeId"})
+     * @Template()
+     * @AclAncestor("acme_task_index")
+     */
+    public function assignedTasksAction(User $assignee)
+    {
+        return array(
+            'assignee' => $assignee
         );
     }
 }

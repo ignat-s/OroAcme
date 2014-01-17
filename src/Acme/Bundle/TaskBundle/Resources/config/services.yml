@@ -6,6 +6,10 @@ parameters:
 
     acme_task.statistics.class: Acme\Bundle\TaskBundle\Model\Statistics
 
+    acme_task.event_listener.datagrid.assigned_tasks_listener.class: Acme\Bundle\TaskBundle\EventListener\Datagrid\AssignedTasksListener
+
+    acme_task.twig.extension.class: Acme\Bundle\TaskBundle\Twig\TaskExtension
+
 services:
     acme_task.form.type.task:
         class: %acme_task.form.type.task.class%
@@ -23,3 +27,14 @@ services:
         class: %acme_task.statistics.class%
         arguments:
             - @doctrine.orm.entity_manager
+
+    acme_task.event_listener.datagrid.assigned_tasks_listener:
+        class: %acme_task.event_listener.datagrid.assigned_tasks_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.before.acme_task_assigned_tasks_grid, method: onBuildBefore }
+            - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.after.acme_task_assigned_tasks_grid, method: onBuildAfter }
+
+    acme_task.twig.extension:
+        class: %acme_task.twig.extension.class%
+        tags:
+            - { name: twig.extension }

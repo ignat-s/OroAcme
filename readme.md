@@ -231,10 +231,29 @@ app/console assetic:dump
 1. Add extend ExtendTask
 2. Create string field
 3. Check datagrid, it should have a new column
-4. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig and check edit form
-5. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig and check view page
+4. Update Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig and check edit form
+5. Update Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig and check view page
 
-## Adding
+## Extending User view - adding assigned tasks
+1. Update Acme/Bundle/TaskBundle/Resources/config/datagrid.yml and add acme_task_assigned_tasks_grid
+2. Add placeholder in Acme/Bundle/TaskBundle/Resources/config/placeholders.yml
+3. Run command cache:clear
+4. Add template Acme/Bundle/TaskBundle/Resources/views/Task/assignedTasks.html.twig with content of placeholder
+5 Add controller action Acme/Bundle/TaskBundle/Controller/TaskController::assignedTasks
+6. Add template Acme/Bundle/TaskBundle/Resources/views/Task/widget/assignedTasks.html.twig with content widget
+7. Add Acme\Bundle\TaskBundle\EventListener\Datagrid\AssignedTasksListener and update services.yml
+8. Demonstrate grid
+
+## Extending User view - adding create task button
+1. Add Acme\Bundle\TaskBundle\Twig\AcmeTaskExtension and update services.yml
+2. Update Acme/Bundle/TaskBundle/Resources/config/placeholders.yml with placeholder of create buttons
+3. Run command cache:clear
+4. Add Acme/Bundle/TaskBundle/Resources/views/Task/createUserTaskButton.html.twig
+5. Update action Acme/Bundle/TaskBundle/Controller/TaskController::createAction to use assigneeId
+
+
+Questions and notes.
+
 
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)

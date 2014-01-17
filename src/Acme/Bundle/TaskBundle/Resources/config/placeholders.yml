@@ -1,9 +1,15 @@
 placeholders:
     oro_user_view_additional_data:
         items:
-            user_calls:
+            acme_task_assigned_tasks:
+                order: 50
+    view_navButtons_after:
+        items:
+            acme_task_create_user_task_button:
                 order: 50
 
 items:
-    user_calls:
-        template: OroCRMCallBundle:Call:user_calls.html.twig
+    acme_task_assigned_tasks:
+        template: AcmeTaskBundle:Task:assignedTasks.html.twig
+    acme_task_create_user_task_button:
+        template: AcmeTaskBundle:Task:createUserTaskButton.html.twig

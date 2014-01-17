@@ -1,0 +1,11 @@
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% if acme_is_user_entity(entity) and resource_granted('acme_task_create') %}
+    <div class="btn-group">
+        {{ UI.addButton({
+            'path' : path('acme_task_create', { assigneeId: entity.id }),
+            'entity_label': 'acme.task.entity_label'|trans
+        }) }}
+    </div>
+{% endif %}
+

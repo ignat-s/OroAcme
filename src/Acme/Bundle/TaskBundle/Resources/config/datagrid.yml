@@ -7,7 +7,6 @@ datagrid:
                 select:
                     - task.id
                     - task.title
-                    - task.description
                     - status.label as statusLabel
                     - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
                     - CONCAT(owner.firstName, CONCAT(' ', owner.lastName)) as ownerName
@@ -113,3 +112,12 @@ datagrid:
                 link: delete_link
                 icon: trash
                 acl_resource: acme_task_delete
+
+    # Tasks assigned to user
+    acme_task_assigned_tasks_grid:
+        extend: acme_task_grid
+        source:
+            query:
+                where:
+                    and:
+                        - task.assignee = :assigneeId
