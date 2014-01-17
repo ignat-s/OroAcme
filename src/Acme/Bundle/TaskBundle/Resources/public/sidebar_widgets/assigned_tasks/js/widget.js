@@ -93,7 +93,7 @@ define(['jquery', 'underscore', 'backbone', 'routing', 'oro/loading-mask'],
                 });
                 view.$el.append(list);
             } else {
-                view.$el.append('<p>_.__("acme.task.assigned_tasks_widget.no_tasks")</p>');
+                view.$el.append(_.template('<p><%= _.__("acme.task.assigned_tasks_widget.no_tasks") %></p>'));
             }
         }
     });

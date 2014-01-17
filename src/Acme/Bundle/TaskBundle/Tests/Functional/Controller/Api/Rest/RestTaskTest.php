@@ -93,23 +93,6 @@ class RestTaskTest extends WebTestCase
      * @depends testCget
      * @param array $task
      */
-    public function testRelatedContacts($task)
-    {
-        $this->client->request(
-            'GET',
-            $this->client->generate('acme_api_get_task_related_contacts', array('id' => $task['id']))
-        );
-        $result = $this->client->getResponse();
-        ToolsAPI::assertJsonResponse($result, 200);
-
-        $contacts = json_decode($result->getContent(), true);
-        $this->assertEmpty($contacts);
-    }
-
-    /**
-     * @depends testCget
-     * @param array $task
-     */
     public function testDelete($task)
     {
         $this->client->request('DELETE', $this->client->generate('acme_api_delete_task', array('id' => $task['id'])));

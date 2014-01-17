@@ -85,16 +85,6 @@ class RestTaskACLTest extends WebTestCase
         ToolsAPI::assertJsonResponse($result, 403);
     }
 
-    public function testRelatedContacts()
-    {
-        $this->client->request(
-            'GET',
-            $this->client->generate('acme_api_get_task_related_contacts', array('id' => self::$taskId))
-        );
-        $result = $this->client->getResponse();
-        ToolsAPI::assertJsonResponse($result, 403);
-    }
-
     public function testDelete()
     {
         $this->client->request(

@@ -100,14 +100,9 @@ class LoadTaskData extends AbstractFixture implements OrderedFixtureInterface
             $task->setOwner($owner);
             $task->setAssignee($assignee);
 
-            $contactsCount = rand(0, 4);
-            while ($contactsCount--) {
-                $contact = $this->getRandomEntity('OroCRMContactBundle:Contact', $manager);
-                if ($contact) {
-                    $task->addRelatedContact($contact);
-                } else {
-                    break;
-                }
+            $contact = $this->getRandomEntity('OroCRMContactBundle:Contact', $manager);
+            if ($contact) {
+                $task->setRelatedContact($contact);
             }
 
             $manager->persist($task);

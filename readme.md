@@ -16,14 +16,15 @@ composer install --prefer-dist
 
 ```
 app/console oro:install --env=dev --user-name=admin --user-email=admin@example.com --user-firstname=John --user-lastname=Doe --user-password=admin --sample-data=n --force
-```
 
-See detailed information https://github.com/ignat-s/crm-application/tree/master
 
-### Add Acme as submodule
+app/console oro:install --env=test --user-name=admin --user-email=admin@example.com --user-firstname=John --user-lastname=Doe --user-password=admin --sample-data=n
 
-```
-git submodule add https://github.com/ignat-s/Acme.git src/Acme
+используй бд с другим именем, например orocrm_test
+
+после этого запусти
+
+app/console doctrine:fixture:load --no-debug --append --no-interaction --env=test --fixtures vendor/oro/platform/src/Oro/src/Oro/Bundle/TestFrameworkBundle/Fixtures
 ```
 
 ## Create virtual host
@@ -33,6 +34,14 @@ git submodule add https://github.com/ignat-s/Acme.git src/Acme
 1. Configure PHP (Settings > PHP)
 2. Configure tests (Edit configuration > Defaults > PHPUnit)
 3. Exclude app/cache
+
+See detailed information https://github.com/ignat-s/crm-application/tree/master
+
+### Add Acme as submodule
+
+```
+git submodule add https://github.com/ignat-s/Acme.git src/Acme
+```
 
 ## Create new bundle
 
@@ -59,7 +68,7 @@ app/console cache:clear
 
 ## Create entities
 
-1. Create Task entity (id, title, description, related contacts, status, assignee, owner, created at, updated at)
+1. Create Task entity (id, title, description, related contact, status, assignee, owner, created at, updated at)
 2. Create TaskStatus entity (name, label)
 3. Create data fixture for statuses (open, closed, in progress)
 4. Update database schema
@@ -75,7 +84,7 @@ app/console doctrine:schema:update --force
 app/console doctrine:fixture:load --fixtures src/Acme/src/Acme/Bundle/TaskBundle/DataFixtures/ --append
 ```
 
-## Tasks list
+## Grid tasks list
 
 1. Add grid config Acme/Bundle/TaskBundle/Resources/config/datagrid.yml
 2. Add controller class Acme\Bundle\TaskBundle\Controller\TaskController
@@ -157,7 +166,6 @@ oro_format_duration, oro_format_ordinal
 cache:clear
 oro:entity-config:init
 oro:entity-config:update
-We have a bug here https://magecore.atlassian.net/browse/BAP-2846
 4. Demonstrate how auditable works
 
 # Rest API
@@ -225,6 +233,8 @@ app/console assetic:dump
 3. Check datagrid, it should have a new column
 4. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig and check edit form
 5. Update src/Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig and check view page
+
+## Adding
 
 ACL:
 1. Do we need to execute command php app/console init:acl (http://symfony.com/doc/current/cookbook/security/acl.html)

@@ -148,32 +148,6 @@ class TaskController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-     * Get related contacts
-     *
-     * @ApiDoc(
-     *      description="Get task related contacts",
-     *      resource=true,
-     *      requirements={
-     *          {"name"="task", "dataType"="integer"},
-     *      }
-     * )
-     * @AclAncestor("orocrm_contact_view")
-     */
-    public function getRelatedContactsAction(Task $id)
-    {
-        $task = $id;
-        $securityFacade = $this->getSecurityFacade();
-
-        $contacts = $task->getRelatedContacts()->filter(
-            function ($contact) use ($securityFacade) {
-                return $securityFacade->isGranted('VIEW', $contact);
-            }
-        );
-
-        return $this->handleView($this->view($contacts->toArray(), Codes::HTTP_OK));
-    }
-
-    /**
      * Create new task
      *
      * @ApiDoc(

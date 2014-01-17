@@ -11,6 +11,7 @@ datagrid:
                     - status.label as statusLabel
                     - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
                     - CONCAT(owner.firstName, CONCAT(' ', owner.lastName)) as ownerName
+                    - CONCAT(relatedContact.firstName, CONCAT(' ', relatedContact.lastName)) as relatedContactName
                     - task.createdAt
                     - task.updatedAt
                 from:
@@ -20,11 +21,14 @@ datagrid:
                         - { join: task.status, alias: status }
                         - { join: task.owner, alias: owner }
                         - { join: task.assignee, alias: assignee }
+                        - { join: task.relatedContact, alias: relatedContact }
         columns:
             title:
                 label: acme.task.title.label
             statusLabel:
                 label: acme.task.status.label
+            relatedContactName:
+                label: acme.task.relatedContact.label
             assigneeName:
                 label: acme.task.assignee.label
             ownerName:

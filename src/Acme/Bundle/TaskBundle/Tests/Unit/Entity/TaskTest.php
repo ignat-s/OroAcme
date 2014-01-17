@@ -44,31 +44,15 @@ class TaskTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($text, $this->task->getDescription());
     }
 
-    public function testRelatedContacts()
+    public function testRelatedContact()
     {
-        $this->assertInstanceOf('Doctrine\\Common\\Collections\\ArrayCollection', $this->task->getRelatedContacts());
-        $this->assertTrue($this->task->getRelatedContacts()->isEmpty());
-
-        $firstContact = new Contact();
-        $firstContact->setId(100);
-
-        $this->task->addRelatedContact($firstContact);
-
-        $this->assertEquals(1, $this->task->getRelatedContacts()->count());
-        $this->assertEquals($firstContact, $this->task->getRelatedContacts()->first());
-
-        $secondContact = new Contact();
-        $secondContact->setId(200);
-
-        $this->task->addRelatedContact($secondContact);
-
-        $this->assertEquals(2, $this->task->getRelatedContacts()->count());
-        $this->assertEquals($secondContact, $this->task->getRelatedContacts()->last());
-
-        $this->task->removeRelatedContact($firstContact);
-
-        $this->assertEquals(1, $this->task->getRelatedContacts()->count());
-        $this->assertEquals($secondContact, $this->task->getRelatedContacts()->first());
+        $this->assertNull($this->task->getRelatedContact());
+        $this->assertNull($this->task->getRelatedContactId());
+        $contact = new Contact();
+        $contact->setId(100);
+        $this->task->setRelatedContact($contact);
+        $this->assertEquals($contact, $this->task->getRelatedContact());
+        $this->assertEquals($contact->getId(), $this->task->getRelatedContactId());
     }
 
     public function testStatus()
@@ -82,17 +66,23 @@ class TaskTest extends \PHPUnit_Framework_TestCase
     public function testAssignee()
     {
         $this->assertNull($this->task->getAssignee());
+        $this->assertNull($this->task->getAssigneeId());
         $assignee = new User();
+        $assignee->setId(100);
         $this->task->setAssignee($assignee);
         $this->assertEquals($assignee, $this->task->getAssignee());
+        $this->assertEquals($assignee->getId(), $this->task->getAssigneeId());
     }
 
     public function testOwner()
     {
         $this->assertNull($this->task->getOwner());
+        $this->assertNull($this->task->getOwnerId());
         $owner = new User();
+        $owner->setId(100);
         $this->task->setOwner($owner);
         $this->assertEquals($owner, $this->task->getOwner());
+        $this->assertEquals($owner->getId(), $this->task->getOwnerId());
     }
 
     public function testCreatedAt()

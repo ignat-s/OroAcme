@@ -87,13 +87,15 @@ class Task extends ExtendTask
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\ContactBundle\Entity\Contact")
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactBundle\Entity\Contact")
+     * @ORM\JoinColumn(name="relatedContact", referencedColumnName="id", onDelete="SET NULL")
      * @ORM\JoinTable(name="acme_task_contacts",
      *      joinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      * @Oro\Versioned
-     * @JMS\Exclude
+     * @JMS\Type("integer")
+     * @JMS\Accessor(getter="getRelatedContactId")
      * @ConfigField(
      *  defaultValues={
      *      "dataaudit"={"auditable"=true},
@@ -101,7 +103,7 @@ class Task extends ExtendTask
      *  }
      * )
      */
-    protected $relatedContacts;
+    protected $relatedContact;
 
     /**
      * @var TaskStatus
@@ -180,11 +182,6 @@ class Task extends ExtendTask
      */
     protected $updatedAt;
 
-    public function __construct()
-    {
-        $this->relatedContacts = new ArrayCollection();
-    }
-
     /**
      * @param int $id
      */
@@ -234,31 +231,27 @@ class Task extends ExtendTask
     }
 
     /**
-     * @return Collection
+     * @return Contact
      */
-    public function getRelatedContacts()
+    public function getRelatedContact()
     {
-        return $this->relatedContacts;
+        return $this->relatedContact;
+    }
+
+    /**
+     * @return Contact
+     */
+    public function getRelatedContactId()
+    {
+        return $this->getRelatedContact() ? $this->getRelatedContact()->getId() : null;
     }
 
     /**
      * @param Contact $contact
      */
-    public function addRelatedContact(Contact $contact)
+    public function setRelatedContact(Contact $contact = null)
     {
-        if (!$this->relatedContacts->contains($contact)) {
-            $this->relatedContacts->add($contact);
-        }
-    }
-
-    /**
-     * @param Contact $contact
-     */
-    public function removeRelatedContact(Contact $contact)
-    {
-        if ($this->relatedContacts->contains($contact)) {
-            $this->relatedContacts->removeElement($contact);
-        }
+        $this->relatedContact = $contact;
     }
 
     /**
@@ -320,7 +313,7 @@ class Task extends ExtendTask
     /**
      * @param User $assignee
      */
-    public function setAssignee($assignee)
+    public function setAssignee(User $assignee = null)
     {
         $this->assignee = $assignee;
     }
@@ -344,7 +337,7 @@ class Task extends ExtendTask
     /**
      * @param User $owner
      */
-    public function setOwner($owner)
+    public function setOwner(User $owner = null)
     {
         $this->owner = $owner;
     }
