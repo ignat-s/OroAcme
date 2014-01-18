@@ -54,7 +54,7 @@ src/Acme/Bundle/TaskBundle
 
 4. Go to System -> Configuration and check new settings
 
-5. Change "Cron schedule" to "1 * * * *" to demonstrate how email will be sent when cron job will be added
+5. Change "Cron schedule" to "* * * * *" to demonstrate how email will be sent when cron job will be added
 
 ## Adding CRON job
 
