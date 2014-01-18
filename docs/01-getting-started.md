@@ -36,6 +36,7 @@ To use development repositories alter /composer.json or you can proceed with cur
 ```
 
 **Create database**
+
 Installing composer will ask you to enter some configuration parameters, like DB so make sure you have created one.
 We will use DB "orocrm_training" and DB "orocrm_training_test" for functional testing.
 
@@ -127,6 +128,16 @@ In any case choose to install sample data.
         <testsuite name="Project Oro Functional Tests">
             <directory suffix="Test.php">../vendor/oro/platform/src/Oro/Bundle/*Bundle/Tests/Functional</directory>
         </testsuite>
+```
+
+```
+    <listeners>
+        <listener class="TestListener" file="../vendor/oro/platform/src/Oro/Bundle/TestFrameworkBundle/Test/TestListener.php">
+            <arguments>
+                <string>app/logs</string>
+            </arguments>
+        </listener>
+    </listeners>
 ```
 
 **Run Oro unit tests from terminal**
