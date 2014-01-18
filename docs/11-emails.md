@@ -25,9 +25,9 @@ src/Acme/Bundle/TaskBundle
 ```
 
 
-## Configure swiftmailer
+## Configure email notifications
 
-1. Configure parameters.yml, for example:
+1. Configure swiftmailer in parameters.yml, for example:
 
    ```
     mailer_transport: smtp
