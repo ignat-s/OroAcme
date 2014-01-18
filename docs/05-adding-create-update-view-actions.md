@@ -41,22 +41,23 @@ src/Acme/Bundle/TaskBundle
 
 4. Create controller actions
 
-* Acme\Bundle\TaskBundle\Controller\TaskController::createAction
-* Acme\Bundle\TaskBundle\Controller\TaskController::updateAction
-* Acme\Bundle\TaskBundle\Controller\TaskController::viewAction
+  * Acme\Bundle\TaskBundle\Controller\TaskController::createAction
+  * Acme\Bundle\TaskBundle\Controller\TaskController::updateAction
+  * Acme\Bundle\TaskBundle\Controller\TaskController::viewAction
 
 5. Update Acme/Bundle/TaskBundle/Resources/translations/messages.en.yml
 
 6. Add create button to template Acme/Bundle/TaskBundle/Resources/views/Task/index.html.twig
 
-7. Create templates 
-* Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
-* Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig 
+7. Create templates
+  
+  * Acme/Bundle/TaskBundle/Resources/views/Task/update.html.twig
+  * Acme/Bundle/TaskBundle/Resources/views/Task/view.html.twig 
 
 ## Localization in twig templates
 
-* https://github.com/orocrm/platform/blob/master/src/Oro/Bundle/LocaleBundle/Resources/doc/index.md
-* http://orocrm-training.local/app_dev.php/acme/task#url=/app_dev.php/config/system/platform/localization
+  * https://github.com/orocrm/platform/blob/master/src/Oro/Bundle/LocaleBundle/Resources/doc/index.md
+  * http://orocrm-training.local/app_dev.php/acme/task#url=/app_dev.php/config/system/platform/localization
 
 ## Add datagrid actions
 
