@@ -29,58 +29,58 @@ src/Acme/Bundle/TaskBundle
 
 1. Add navigation menu to Acme/Bundle/TaskBundle/Resources/config/navigation.yml:
 
-```
-oro_menu_config:
-    items:
-        acme_tab:
-            label: Acme
-            uri: '#'
+  ```
+  oro_menu_config:
+      items:
+          acme_tab:
+              label: Acme
+              uri: '#'
 
-        task_list:
-            label: acme.task.entity_plural_label
-            route: acme_task_index
-            extras:
-                routes: ['acme_task_*']
-                description: List of tasks
+          task_list:
+              label: acme.task.entity_plural_label
+              route: acme_task_index
+              extras:
+                  routes: ['acme_task_*']
+                  description: List of tasks
 
-        shortcut_task_create:
-            label: Create new task
-            route: acme_task_create
-            extras:
-                description: Create new task
-        shortcut_task_list:
-            label: Show tasks list
-            route: acme_task_index
-            extras:
-                description: List of tasks
-
-    tree:
-        application_menu:
-            children:
-                acme_tab:
-                    children:
-                        task_list: ~
-        shortcuts:
-            children:
-                shortcut_task_create: ~
-                shortcut_task_list: ~
-```
+          shortcut_task_create:
+              label: Create new task
+              route: acme_task_create
+              extras:
+                  description: Create new task
+          shortcut_task_list:
+              label: Show tasks list
+              route: acme_task_index
+              extras:
+                  description: List of tasks
+  
+      tree:
+          application_menu:
+              children:
+                  acme_tab:
+                      children:
+                          task_list: ~
+          shortcuts:
+              children:
+                  shortcut_task_create: ~
+                  shortcut_task_list: ~
+  ```
 
 2. Run command oro:navigation:init
 
-3. Check new item in applicatio menu and new shortcuts
+3. Check new item in application menu and new shortcuts
 
 ## Navigation titles
 
 1. Add navigation titles to Acme/Bundle/TaskBundle/Resources/config/navigation.yml:
 
-```
-oro_titles:
-    acme_task_index: ~
-    acme_task_view: %%entity.title%%
-    acme_task_create: Create %%entityName%%
-    acme_task_update: %%entity.title%% - Edit
-```
+  ```
+  oro_titles:
+      acme_task_index: ~
+      acme_task_view: %%entity.title%%
+      acme_task_create: Create %%entityName%%
+      acme_task_update: %%entity.title%% - Edit
+  ```
 
 2. Update templates with titles by using oro_title_set Twig tag
 
